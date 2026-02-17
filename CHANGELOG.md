@@ -2,6 +2,13 @@
 
 All notable changes to this package will be documented in this file.
 
+## [1.1.0] - 2026-02-17
+
+### Added
+- Dark mode support for email templates via `@media (prefers-color-scheme: dark)`
+- `color-scheme` meta tags for Apple Mail compatibility
+- Off-white (`#fdfdfd`) replacements for auto-inversion resilience in Gmail/Outlook
+
 ## [1.0.3] - 2026-02-17
 
 ### Added
