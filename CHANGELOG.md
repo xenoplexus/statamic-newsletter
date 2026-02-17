@@ -2,6 +2,16 @@
 
 All notable changes to this package will be documented in this file.
 
+## [1.0.3] - 2026-02-17
+
+### Added
+- `.gitattributes` to exclude tests/docs from Composer downloads
+- `CHANGELOG.md` for version history
+- `homepage` and `support` URLs in composer.json
+
+### Changed
+- `minimum-stability` from `dev` to `stable`
+
 ## [1.0.2] - 2026-02-17
 
 ### Added
