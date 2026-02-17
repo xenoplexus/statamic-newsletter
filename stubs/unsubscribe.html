@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Open Sans", Arial, sans-serif;
+            background: #eef1f5;
+            color: #232f4b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 50px 40px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #232f4b;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        p {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        input[type="email"] {
+            font-family: "Open Sans", Arial, sans-serif;
+            font-size: 1em;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+            color: #232f4b;
+        }
+
+        input[type="email"]:focus {
+            border-color: #f67d4a;
+        }
+
+        input[type="email"]::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            font-family: "Open Sans", Arial, sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            padding: 14px;
+            background: #f67d4a;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #e06a38;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .msg {
+            margin-top: 16px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .msg.success { color: #009a00; }
+        .msg.error   { color: #c00; }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            font-size: 0.85em;
+            color: #f67d4a;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .card { padding: 36px 24px; }
+            h1 { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Unsubscribe</h1>
+        <p>Enter your email below and we'll remove you from our mailing list.</p>
+
+        <form id="unsub-form">
+            <input type="email" name="email" placeholder="your@email.com" required>
+            <button type="submit">Unsubscribe</button>
+        </form>
+
+        <p class="msg" id="msg"></p>
+    </div>
+
+    <script>
+    document.getElementById('unsub-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var form  = this;
+        var btn   = form.querySelector('button');
+        var msg   = document.getElementById('msg');
+        var email = form.querySelector('input[name="email"]').value;
+
+        btn.disabled = true;
+        btn.textContent = 'Processing...';
+        msg.style.display = 'none';
+        msg.className = 'msg';
+
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            msg.textContent = data.message;
+            msg.className = 'msg ' + (data.success ? 'success' : 'error');
+            msg.style.display = 'block';
+
+            if (data.success) {
+                form.querySelector('input[name="email"]').value = '';
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Unsubscribe';
+        })
+        .catch(function() {
+            msg.textContent = 'Something went wrong. Please try again.';
+            msg.className = 'msg error';
+            msg.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = 'Unsubscribe';
+        });
+    });
+    </script>
+</body>
+</html>

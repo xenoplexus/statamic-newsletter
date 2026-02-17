@@ -1,0 +1,56 @@
+<div class="newsletter-subscribe-form">
+    <form id="newsletter-form">
+        <input type="hidden" name="_token" value="{{ csrf_token }}">
+        <div>
+            <input type="email" name="email" placeholder="Enter Your Email" required>
+            <button type="submit">Subscribe</button>
+        </div>
+        <p id="newsletter-message" style="margin-top:10px;display:none;"></p>
+    </form>
+</div>
+
+<script>
+document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var form = this;
+    var btn = form.querySelector('button[type="submit"]');
+    var msg = document.getElementById('newsletter-message');
+    var email = form.querySelector('input[name="email"]').value;
+    var token = form.querySelector('input[name="_token"]').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    msg.style.display = 'none';
+
+    fetch('{{ action }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token,
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        msg.textContent = data.message;
+        msg.style.color = data.success ? '#009a00' : '#c00';
+        msg.style.display = 'block';
+
+        if (data.success) {
+            form.querySelector('input[name="email"]').value = '';
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+    })
+    .catch(function() {
+        msg.textContent = 'Something went wrong. Please try again.';
+        msg.style.color = '#c00';
+        msg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+    });
+});
+</script>

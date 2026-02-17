@@ -1,0 +1,97 @@
+title: Newsletter
+tabs:
+  main:
+    display: Content
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: 'Subject Line'
+              validate:
+                - required
+              instructions: 'This becomes the email subject line.'
+          -
+            handle: intro_heading
+            field:
+              type: text
+              display: 'Intro Heading'
+              default: 'Hi there,'
+              instructions: 'The greeting at the top of the email.'
+          -
+            handle: intro_body
+            field:
+              type: textarea
+              display: 'Intro Text'
+              instructions: 'Brief opening paragraph for this issue.'
+          -
+            handle: sections
+            field:
+              type: replicator
+              display: 'Newsletter Sections'
+              instructions: 'Add content sections. Each becomes a card in the email.'
+              sets:
+                main:
+                  display: Main
+                  sets:
+                    content_section:
+                      display: 'Content Section'
+                      icon: text-formatting-image-left
+                      fields:
+                        -
+                          handle: image
+                          field:
+                            type: assets
+                            display: 'Section Image'
+                            container: assets
+                            max_files: 1
+                            instructions: 'Optional hero image for this section.'
+                        -
+                          handle: heading
+                          field:
+                            type: text
+                            display: Heading
+                            validate: required
+                        -
+                          handle: body
+                          field:
+                            type: markdown
+                            display: Body
+                            validate: required
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              display: 'Issue Date'
+              validate:
+                - required
+          -
+            handle: newsletter_sent_at
+            field:
+              type: text
+              display: 'Sent At'
+              instructions: 'Automatically set when the newsletter is sent. Do not edit.'
+              visibility: hidden
+          -
+            handle: newsletter_send_count
+            field:
+              type: integer
+              display: Recipients
+              instructions: 'Number of subscribers this was sent to.'
+              visibility: hidden

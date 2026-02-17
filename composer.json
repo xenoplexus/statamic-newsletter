@@ -1,0 +1,41 @@
+{
+    "name": "xenoplexus/statamic-newsletter",
+    "autoload": {
+        "psr-4": {
+            "Xenoplexus\\StatamicNewsletter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Xenoplexus\\StatamicNewsletter\\Tests\\": "tests"
+        }
+    },
+    "description": "Newsletter management addon for Statamic — subscribe/unsubscribe, Postmark integration, queued batch sending.",
+    "keywords": ["statamic", "newsletter", "postmark", "email"],
+    "require": {
+        "php": "^8.2",
+        "statamic/cms": "^6.0",
+        "wildbit/postmark-php": "^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.8"
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Newsletter",
+            "description": "Newsletter management with Postmark integration"
+        },
+        "laravel": {
+            "providers": [
+                "Xenoplexus\\StatamicNewsletter\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
