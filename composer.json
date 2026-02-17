@@ -10,6 +10,7 @@
             "Xenoplexus\\StatamicNewsletter\\Tests\\": "tests"
         }
     },
+    "license": "MIT",
     "description": "Newsletter management addon for Statamic — subscribe/unsubscribe, Postmark integration, queued batch sending.",
     "keywords": ["statamic", "newsletter", "postmark", "email"],
     "require": {
