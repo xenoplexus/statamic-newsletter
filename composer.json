@@ -14,14 +14,11 @@
     "description": "Newsletter management addon for Statamic — subscribe/unsubscribe, Postmark integration, queued batch sending.",
     "keywords": ["statamic", "newsletter", "postmark", "email"],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "statamic/cms": "^6.0",
         "wildbit/postmark-php": "^7.0"
     },
-    "require-dev": {
-        "orchestra/testbench": "^10.8"
-    },
-    "config": {
+"config": {
         "allow-plugins": {
             "pixelfear/composer-dist-plugin": true
         }
