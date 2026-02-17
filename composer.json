@@ -17,13 +17,14 @@
         }
     ],
     "description": "Newsletter management addon for Statamic — subscribe/unsubscribe, Postmark integration, queued batch sending.",
+    "homepage": "https://github.com/xenoplexus/statamic-newsletter",
     "keywords": ["statamic", "newsletter", "postmark", "email"],
     "require": {
         "php": "^8.3",
         "statamic/cms": "^6.0",
         "wildbit/postmark-php": "^7.0"
     },
-"config": {
+    "config": {
         "allow-plugins": {
             "pixelfear/composer-dist-plugin": true
         }
@@ -39,6 +40,10 @@
             ]
         }
     },
-    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://github.com/xenoplexus/statamic-newsletter/issues",
+        "source": "https://github.com/xenoplexus/statamic-newsletter"
+    },
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
